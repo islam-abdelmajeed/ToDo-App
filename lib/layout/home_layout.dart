@@ -1,7 +1,6 @@
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_app/modules/developer_screen/developer_info_screen.dart';
 import 'package:todo_app/shared/components/reusable_components.dart';
 import 'package:todo_app/shared/cubit/cubit.dart';
 import 'package:todo_app/shared/cubit/states.dart';
@@ -51,15 +50,6 @@ class HomeLayout extends StatelessWidget {
                   bottomLeft: Radius.circular(40),
                 ),
               ),
-              actions: [
-                IconButton(
-                  icon: Icon(Icons.person_pin),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(
-                        DeveloperInfoScreen.developerInfoScreenRoute);
-                  },
-                ),
-              ],
             ),
             body: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -116,7 +106,7 @@ class HomeLayout extends StatelessWidget {
                                   defaultTextEditing(
                                     controller: titleController,
                                     type: TextInputType.text,
-                                    label: 'Task Title',
+                                    text: 'Task Title',
                                     prefix: Icons.title,
                                     validator: (value) {
                                       if (value.isEmpty)
@@ -132,7 +122,7 @@ class HomeLayout extends StatelessWidget {
                                   defaultTextEditing(
                                       controller: timeController,
                                       type: TextInputType.datetime,
-                                      label: 'Time',
+                                      text: 'Time',
                                       prefix: Icons.watch_later,
                                       validator: (value) {
                                         if (value.isEmpty)
@@ -156,7 +146,7 @@ class HomeLayout extends StatelessWidget {
                                   defaultTextEditing(
                                       controller: dateController,
                                       type: TextInputType.datetime,
-                                      label: 'Date',
+                                      text: 'Date',
                                       suffix: null,
                                       prefix: Icons.date_range,
                                       validator: (value) {

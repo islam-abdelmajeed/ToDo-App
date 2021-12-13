@@ -7,9 +7,9 @@ import 'package:todo_app/shared/cubit/states.dart';
 class ArchivedTasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit, AppStates>(
-      listener: (context, state) {},
-      builder: (context, state) => ListView.separated(
+    return BlocConsumer<AppCubit , AppStates>(
+      listener: (context , state) {},
+      builder: (context , state) => ListView.separated(
         itemBuilder: (context, index) =>
             buildTaskItem(AppCubit.get(context).archivedTasks[index], context),
         separatorBuilder: (context, index) => SizedBox(

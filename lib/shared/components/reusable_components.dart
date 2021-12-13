@@ -4,7 +4,7 @@ import 'package:todo_app/shared/cubit/cubit.dart';
 Widget defaultTextEditing({
   @required TextEditingController controller,
   @required TextInputType type,
-  @required String label,
+  @required String text,
   @required IconData prefix,
   IconData suffix,
   bool isPassword = false,
@@ -20,7 +20,7 @@ Widget defaultTextEditing({
       obscureText: isPassword,
       validator: validator,
       decoration: InputDecoration(
-        labelText: label,
+        labelText: text,
         labelStyle: TextStyle(
           fontWeight: FontWeight.bold,
         ),

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:todo_app/layout/home_layout.dart';
-import 'package:todo_app/modules/developer_screen/developer_info_screen.dart';
-
-import 'modules/login/login_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,10 +19,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       routes: {
-        LoginScreen.loginScreenRoute: (context) => LoginScreen(),
         HomeLayout.homeScreenRoute: (context) => HomeLayout(),
-        DeveloperInfoScreen.developerInfoScreenRoute: (context) =>
-            DeveloperInfoScreen(),
       },
       home: SplashScreen(
         seconds: 3,

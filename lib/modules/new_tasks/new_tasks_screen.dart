@@ -7,8 +7,10 @@ import 'package:todo_app/shared/cubit/states.dart';
 class NewTasksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit, AppStates>(
-      listener: (context, state) {},
+    return BlocConsumer<AppCubit , AppStates>(
+      listener: (context, state) {
+
+      },
       builder: (context, state) => ListView.separated(
         itemBuilder: (context, index) =>
             buildTaskItem(AppCubit.get(context).newTasks[index], context),
