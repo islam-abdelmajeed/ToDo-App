@@ -8,11 +8,11 @@ import 'package:todo_app/modules/new_tasks/new_tasks_screen.dart';
 import 'package:todo_app/shared/cubit/states.dart';
 
 class AppCubit extends Cubit<AppStates> {
-  AppCubit() : super(AppInitialStates());
+   AppCubit() : super(AppInitialStates());
 
   static AppCubit get(context) => BlocProvider.of(context);
 
-  Database database;
+  late Database database;
 
   List<Map> newTasks = [];
   List<Map> doneTasks = [];
@@ -67,19 +67,19 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   insertInDatabase({
-    @required String title,
-    @required String date,
-    @required String time,
+    required String title,
+    required String date,
+    required String time,
   }) async {
     await database.transaction((txn) {
-      txn
+     return txn
           .rawInsert(
               'INSERT INTO tasks(title,date,time,status) VALUES("$title","$date","$time","new")')
           .then((value) {})
           .catchError((error) {
         print('Error : $error');
       });
-      return null;
+
     }).then((value) {
       emit(AppInsertDatabaseState());
       getDataFromDatabase(database);
@@ -105,15 +105,15 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   void changeBottomSheetState({
-    @required bool isShow,
+    required bool isShow,
   }) {
     bottomSheetIsOpened = isShow;
     emit(AppChangeBottomSheetState());
   }
 
   void updateDatabaseData({
-    @required String status,
-    @required int id,
+    required String status,
+    required int id,
   }) {
     database.rawUpdate(
       'UPDATE tasks SET status = ? WHERE id = ?',
@@ -127,7 +127,7 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   void deleteDataFromDatabase({
-    @required int id,
+    required int id,
   }) {
     database.rawDelete(
       'DELETE FROM tasks WHERE id = ?',

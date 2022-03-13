@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:splashscreen/splashscreen.dart';
 import 'package:todo_app/layout/home_layout.dart';
 
 void main() {
@@ -21,23 +20,7 @@ class MyApp extends StatelessWidget {
       routes: {
         HomeLayout.homeScreenRoute: (context) => HomeLayout(),
       },
-      home: SplashScreen(
-        seconds: 3,
-        loadingText: Text('loading..'),
-        loaderColor: Colors.blue,
-        backgroundColor: Colors.grey[100],
-        title: Text(
-          'Todo App',
-          style: TextStyle(
-            fontSize: 30.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.blue,
-          ),
-        ),
-        navigateAfterSeconds: HomeLayout(),
-        image: Image.asset('assets/images/splash_screen.png'),
-        photoSize: 120.0,
-      ),
+      home: HomeLayout(),
     );
   }
 }

@@ -1,4 +1,3 @@
-import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/shared/components/reusable_components.dart';
@@ -31,14 +30,6 @@ class HomeLayout extends StatelessWidget {
           return Scaffold(
             key: scaffoldKey,
             appBar: AppBar(
-              leading: Row(
-                children: [
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Icon(Icons.list),
-                ],
-              ),
               title: Text(
                 cubit.titles[cubit.currentIndex],
                 style: TextStyle(
@@ -53,13 +44,7 @@ class HomeLayout extends StatelessWidget {
             ),
             body: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: ConditionalBuilder(
-                condition: true,
-                builder: (context) => cubit.screens[cubit.currentIndex],
-                fallback: (context) => Center(
-                  child: CircularProgressIndicator(),
-                ),
-              ),
+              child: cubit.screens[cubit.currentIndex],
             ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
@@ -77,7 +62,7 @@ class HomeLayout extends StatelessWidget {
               ),
               onPressed: () {
                 if (cubit.bottomSheetIsOpened) {
-                  if (formKey.currentState.validate()) {
+                  if (formKey.currentState!.validate()) {
                     cubit.insertInDatabase(
                       title: titleController.text,
                       date: dateController.text,
@@ -85,7 +70,7 @@ class HomeLayout extends StatelessWidget {
                     );
                   }
                 } else {
-                  scaffoldKey.currentState
+                  scaffoldKey.currentState!
                       .showBottomSheet(
                         (context) => SingleChildScrollView(
                           child: Container(
@@ -111,7 +96,6 @@ class HomeLayout extends StatelessWidget {
                                     validator: (value) {
                                       if (value.isEmpty)
                                         return ('Title can not be empty');
-                                      return null;
                                     },
                                   ),
 
@@ -135,7 +119,7 @@ class HomeLayout extends StatelessWidget {
                                           initialTime: TimeOfDay.now(),
                                         ).then((value) {
                                           timeController.text =
-                                              value.format(context);
+                                              value!.format(context);
                                         });
                                       }),
 
@@ -163,7 +147,7 @@ class HomeLayout extends StatelessWidget {
                                               DateTime.parse('2099-04-01'),
                                         ).then((value) {
                                           dateController.text =
-                                              '${value.day} / ${value.month} / ${value.year}';
+                                              '${value?.day} / ${value?.month} / ${value?.year}';
                                         });
                                       }),
                                   SizedBox(

@@ -1,24 +1,27 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/shared/cubit/cubit.dart';
 
 Widget defaultTextEditing({
-  @required TextEditingController controller,
-  @required TextInputType type,
-  @required String text,
-  @required IconData prefix,
-  IconData suffix,
+  required TextEditingController controller,
+  required TextInputType type,
+  required String text,
+  required IconData prefix,
+  IconData? suffix,
   bool isPassword = false,
-  Function onChanged,
-  Function onSubmitted,
-  Function onShowPassword,
-  Function validator,
-  Function onTap,
+  Function? onChanged,
+  Function? onSubmitted,
+  Function? onShowPassword,
+  Function? validator,
+  Function? onTap,
 }) =>
     TextFormField(
       controller: controller,
       keyboardType: type,
       obscureText: isPassword,
-      validator: validator,
+      validator: (s){
+        validator!();
+      },
       decoration: InputDecoration(
         labelText: text,
         labelStyle: TextStyle(
@@ -30,18 +33,26 @@ Widget defaultTextEditing({
         prefixIcon: Icon(prefix),
         suffixIcon: IconButton(
           icon: Icon(suffix),
-          onPressed: onShowPassword,
+          onPressed: (){
+            onShowPassword!();
+          },
         ),
       ),
-      onFieldSubmitted: onSubmitted,
-      onChanged: onChanged,
-      onTap: onTap,
+      onFieldSubmitted: (s){
+        onSubmitted!();
+      },
+      onChanged: (s){
+        onChanged!();
+      },
+      onTap: (){
+        onTap!();
+      },
     );
 
 Widget defaultButton({
-  @required String label,
+  required String label,
   Color buttonColor = Colors.blue,
-  Function onPressButton,
+  Function? onPressButton,
 }) =>
     Container(
       width: double.infinity,
@@ -59,7 +70,9 @@ Widget defaultButton({
         ),
         color: buttonColor,
         splashColor: Colors.white,
-        onPressed: onPressButton,
+        onPressed: (){
+          onPressButton!();
+        },
       ),
     );
 
@@ -71,17 +84,17 @@ Widget buildTaskItem(Map data, context) {
       backgroundColor: Colors.green,
       mainAxisAlignment: MainAxisAlignment.start,
       icon: data['status'] == 'archive' ? Icons.undo : Icons.archive,
-      iconColor: Colors.grey[100],
+      iconColor: CupertinoColors.systemGrey4,
       label: data['status'] == 'archive' ? 'Un Archive Task' : 'Archive Task',
-      labelColor: Colors.grey[100],
+      labelColor: CupertinoColors.systemGrey4,
     ),
     secondaryBackground: buildDismissableDirectionElement(
       backgroundColor: Colors.redAccent,
       mainAxisAlignment: MainAxisAlignment.end,
       icon: Icons.delete,
-      iconColor: Colors.grey[100],
+      iconColor: CupertinoColors.systemGrey4,
       label: 'Delete Task',
-      labelColor: Colors.grey[100],
+      labelColor: CupertinoColors.systemGrey4,
     ),
     confirmDismiss: (direction) async {
       return showDialog(
@@ -314,37 +327,7 @@ Widget buildTaskItem(Map data, context) {
                   },
                   itemBuilder: (context) {
                     return <PopupMenuEntry>[
-                      buildPopupMenuItem(
-                        value: 1,
-                        title: data['status'] == 'done'
-                            ? 'Mark as un Done'
-                            : 'Mark as Done',
-                        icon:
-                            data['status'] == 'done' ? Icons.undo : Icons.done,
-                        iconColor: Colors.lightGreen,
-                      ),
-                      const PopupMenuDivider(
-                        height: 2.0,
-                      ),
-                      buildPopupMenuItem(
-                        value: 2,
-                        title: data['status'] == 'archive'
-                            ? 'Un Archive Task'
-                            : 'Archive Task',
-                        icon: data['status'] == 'archive'
-                            ? Icons.unarchive
-                            : Icons.archive,
-                        iconColor: Colors.black26,
-                      ),
-                      const PopupMenuDivider(
-                        height: 2.0,
-                      ),
-                      buildPopupMenuItem(
-                        value: 3,
-                        title: 'Delete Task',
-                        icon: Icons.delete,
-                        iconColor: Colors.redAccent,
-                      ),
+
                     ];
                   },
                   color: Colors.grey[100],
@@ -363,10 +346,10 @@ Widget buildTaskItem(Map data, context) {
 }
 
 Widget buildPopupMenuItem({
-  @required int value,
-  @required String title,
-  @required IconData icon,
-  @required Color iconColor,
+  required int value,
+  required String title,
+  required IconData icon,
+  required Color iconColor,
 }) {
   return PopupMenuItem(
     value: value,
@@ -387,12 +370,12 @@ Widget buildPopupMenuItem({
 }
 
 Widget buildDismissableDirectionElement({
-  @required Color backgroundColor,
-  @required MainAxisAlignment mainAxisAlignment,
-  @required IconData icon,
-  @required Color iconColor,
-  @required String label,
-  @required Color labelColor,
+  required Color backgroundColor,
+  required MainAxisAlignment mainAxisAlignment,
+  required IconData icon,
+  required Color iconColor,
+  required String label,
+  required Color labelColor,
 }) {
   return Container(
     padding: EdgeInsets.only(
